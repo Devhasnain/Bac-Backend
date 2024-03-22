@@ -9,44 +9,77 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// const PostStorage = new CloudinaryStorage({
-//   cloudinary,
-//   params: {
-//     folder: "post",
-//     allowed_formats: ["jpg", "jpeg", "png", "avi"],
-//   },
-// });
+const AssetStorage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "bac/assets",
+    resource_type: "auto",
+    allowed_formats: [
+      "jpg",
+      "jpeg",
+      "png",
+      "webp",
+      "gif",
+      "avi",
+      "mp4",
+      "webm",
+    ],
+  },
+});
 
-// const StoryStorage = new CloudinaryStorage({
-//   cloudinary,
-//   params: {
-//     folder: "story",
-//     resource_type: "auto",
-//     allowed_formats: ["jpg", "jpeg", "png", "webp", "avi","mp4", "webm"],
-//   },
-// });
+const EmployeeStorage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "bac/employees",
+    allowed_formats: [
+      "jpg",
+      "jpeg",
+      "png",
+      "svg",
+      "webp",
+    ],
+  },
+});
 
-// const UserStorage = new CloudinaryStorage({
-//   cloudinary,
-//   params: {
-//     folder: "user",
-//     allowed_formats: ["jpg", "jpeg", "png"],
-//   },
-// });
+const DocsStorage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "bac/certificates",
+    allowed_formats: [
+      "jpg",
+      "jpeg",
+      "png",
+      "svg",
+      "webp",
+      "pdf"
+    ],
+  },
+});
 
-// const ReelStorage = new CloudinaryStorage({
-//   cloudinary,
-//   params: {
-//     folder: "video",
-//     allowed_formats: ["jpg", "jpeg", "png", "avi"],
-//   },
-// });
+const ProductStorage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "bac/products",
+    allowed_formats: [
+      "jpg",
+      "jpeg",
+      "png",
+      "svg",
+      "webp",
+      "pdf"
+    ],
+  },
+});
 
-// const postFiles = multer({ storage: PostStorage }).array("files", 5);
-// const postStory = multer({ storage: StoryStorage }).array("files", 5);
-// const userImage = multer({ storage: UserStorage }).single("image");
-// const postReel = multer({ storage: ReelStorage }).single("reel");
-// const storage = multer.memoryStorage();
-// const bufferUploader = multer({ storage: storage }).array("files", 5);
+const assetUploader = multer({storage:AssetStorage}).single("file");
+const employeImageUploader = multer({storage:EmployeeStorage}).single("file");
+const docsUploader = multer({storage:DocsStorage}).array("file", 5);
+const productUploader = multer({storage:ProductStorage}).single("file");
 
-// module.exports = { postFiles, postReel, userImage, bufferUploader, postStory };
+module.exports = {
+  assetUploader,
+  cloudinary,
+  employeImageUploader,
+  docsUploader,
+  productUploader
+}
