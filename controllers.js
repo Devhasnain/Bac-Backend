@@ -19,7 +19,7 @@ const route = Router();
 // @ Logo and Video Route
 route.get("/assets", async (req, res) => {
   try {
-    let assets = await Assets.find().select(["_id", "path"]);
+    let assets = await Assets.find().select(["_id", "path", "mimetype"]);
     if (!assets.length) {
       throw new Error("Assets not found");
     }
@@ -44,7 +44,11 @@ route.post("/upload/asset", assetUploader, async (req, res) => {
 
     let asset = await Assets.create(file);
 
-    return ResHandler({}, req, res);
+    let payload = {
+      asset
+    }
+
+    return ResHandler(payload, req, res);
   } catch (error) {
     return ErrorHandler(error, res, res);
   }
