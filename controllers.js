@@ -17,6 +17,15 @@ const route = Router();
 
 // routes for uploading logos and videos
 // @ Logo and Video Route
+
+route.get("/login", async (req,res)=>{
+  try {
+    let 
+  } catch (error) {
+    return ErrorHandler(error,req,res);
+  }
+})
+
 route.get("/assets", async (req, res) => {
   try {
     let assets = await Assets.find().select(["_id", "path", "mimetype"]);
@@ -222,16 +231,12 @@ route.get("/docs", async (req, res) => {
 
 route.post("/docs/upload", docsUploader, async (req, res) => {
   try {
-    let files = req?.files;
+    let file = req?.file;
 
-    files.forEach(async (item) => {
-      await Certificates.create(item);
-    });
-
-    let docs = await Certificates.find({}).select(["-__v", "-updatedAt"]);
+    let doc = await Certificates.create(file);
 
     let payload = {
-      docs,
+      doc,
     };
 
     return ResHandler(payload, req, res);

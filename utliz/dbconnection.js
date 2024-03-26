@@ -1,15 +1,17 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
-module.exports =async () => {
+
+module.exports = async () => {
   try {
-    if (mongoose.connections[0].readyState !== 1) {
+    if (mongoose.connection.readyState !== 1) {
       await mongoose.connect(process.env.MONGODB_URI);
-      console.log("db connected...");
-      return;
+      console.log("connected to Database...");
+      return
     }
-    console.log("already connected");
+    console.log("alredy connected to Database...");
+    return;
   } catch (error) {
-    console.log(error?.message)
+    console.log(error.message);
     process.exit(1);
   }
 };

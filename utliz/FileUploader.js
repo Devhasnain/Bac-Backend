@@ -73,7 +73,7 @@ const ProductStorage = new CloudinaryStorage({
 
 const assetUploader = multer({storage:AssetStorage}).single("file");
 const employeImageUploader = multer({storage:EmployeeStorage}).single("file");
-const docsUploader = multer({storage:DocsStorage}).array("file", 5);
+const docsUploader = multer({storage:DocsStorage}).single("file");
 const productUploader = multer({storage:ProductStorage}).single("file");
 
 module.exports = {
